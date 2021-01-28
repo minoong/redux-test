@@ -1,6 +1,6 @@
 import React from "react";
 
-const TimelineList = () => {
+const TimelineList = ({ timelines }) => {
   return <div></div>;
 };
 
