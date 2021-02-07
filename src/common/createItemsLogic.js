@@ -13,8 +13,7 @@ export default function createItemsLogic(name) {
     { [name]: [] },
     {
       [ADD]: (state, action) => {
-        console.log(action);
-        return state[name].push(action.item);
+        state[name].push(action.item);
       },
       [REMOVE]: (state, action) =>
         (state[name] = state[name].filter(

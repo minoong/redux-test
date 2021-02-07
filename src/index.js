@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
 import timelineReducer, {
   addTimeline,
   removeTimeline,
@@ -15,6 +16,8 @@ import friendReducer, {
   removeFriend,
   editFriend,
 } from "./friend/state";
+import FriendMain from "./container/FriendMain";
+import TimelineMain from "./container/TimelineMain";
 
 const reducer = combineReducers({
   timeline: timelineReducer,
@@ -28,20 +31,25 @@ store.subscribe(() => {
   console.log(state);
 });
 
-store.dispatch(addTimeline({ id: 1, desc: "TEST1" }));
-store.dispatch(addTimeline({ id: 2, desc: "TEST2" }));
-store.dispatch(increaseNextPage());
-store.dispatch(editTimeline({ id: 2, desc: "TEST3" }));
-store.dispatch(removeTimeline({ id: 1 }));
+// store.dispatch(addTimeline({ id: 1, desc: "TEST1" }));
+// store.dispatch(addTimeline({ id: 2, desc: "TEST2" }));
+// store.dispatch(increaseNextPage());
+// store.dispatch(editTimeline({ id: 2, desc: "TEST3" }));
+// store.dispatch(removeTimeline({ id: 1 }));
 
-store.dispatch(addFriend({ id: 1, name: "아이유" }));
-store.dispatch(addFriend({ id: 2, name: "테스트2" }));
-store.dispatch(editFriend({ id: 2, name: "zzz" }));
-store.dispatch(removeFriend({ id: 1 }));
+// store.dispatch(addFriend({ id: 1, name: "아이유" }));
+// store.dispatch(addFriend({ id: 2, name: "테스트2" }));
+// store.dispatch(editFriend({ id: 2, name: "zzz" }));
+// store.dispatch(removeFriend({ id: 1 }));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <>
+        <FriendMain />
+        <TimelineMain />
+      </>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

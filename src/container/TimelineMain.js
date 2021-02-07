@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getNextTimeline } from "../common/mockData";
 import store from "../common/store";
 import TimelineList from "../component/TimelineList";
 import { addTimeline } from "../timeline/state";
@@ -9,21 +11,12 @@ function useForceUpdate() {
 }
 
 const TimelineMain = () => {
-  const forceUpdate = useForceUpdate();
-  let unsubcribe = null;
-
-  useEffect(() => {
-    unsubcribe = store.subscribe(() => forceUpdate());
-
-    return () => unsubcribe();
-  }, []);
-
+  const timelines = useSelector(({ timeline: { timelines } }) => timelines);
+  const dispatch = useDispatch();
   const onAdd = () => {
     const timeline = getNextTimeline();
-    store.dispatch(addTimeline(timeline));
+    dispatch(addTimeline(timeline));
   };
-
-  const timelines = store.getState().timeline.timelines;
 
   return (
     <div>
@@ -33,4 +26,4 @@ const TimelineMain = () => {
   );
 };
 
-export default TimelineMain;
+export default React.memo(TimelineMain);
